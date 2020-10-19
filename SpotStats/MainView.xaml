@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="SpotStats.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpotStats"
+             xmlns:oxy="http://oxyplot.org/wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="800" MinHeight="600">
+    <Grid>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontSize="24" FontWeight="Black" FontFamily="Arial" TextAlignment="Center">Scanning Spot Statistics</TextBlock>
+        <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="16" FontFamily="Arial" x:Name="txtPlan" Margin="20,0,0,0" Text="Plan"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" FontSize="16" FontFamily="Arial" Margin="20,0,0,0">Select Field:</TextBlock>
+        <ComboBox Grid.Row="2" Grid.Column="2" FontSize="16" FontFamily="Arial" x:Name="cbField" DisplayMemberPath="Id" SelectionChanged="cbField_SelectionChanged" MinWidth="200"></ComboBox>
+        <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" FontSize="18" FontFamily="Arial">Energy Layer Information</TextBlock>
+        <ListView x:Name="lvLayer" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="1" ItemsSource="{Binding}" SelectionChanged="lvLayer_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Energy(MeV)" DisplayMemberBinding="{Binding Path=Energy, StringFormat=0.00}" Width="80"></GridViewColumn>
+                    <GridViewColumn Header="Spot #" DisplayMemberBinding="{Binding Path=SpotNo}" Width="80"></GridViewColumn>
+                    <GridViewColumn Header="Total MU" DisplayMemberBinding="{Binding Path=TotalMU, StringFormat=0.00}" Width="80"></GridViewColumn>
+                    <GridViewColumn Header="Max MU" DisplayMemberBinding="{Binding Path=MaxMU, StringFormat=0.00}" Width="80"></GridViewColumn>
+                    <GridViewColumn Header="Min MU" DisplayMemberBinding="{Binding Path=MinMU, StringFormat=0.00}" Width="80"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
+            <oxy:PlotView x:Name="pvEnergy" Height="200"/>
+            <oxy:PlotView x:Name="pvSpot" Height="300"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
